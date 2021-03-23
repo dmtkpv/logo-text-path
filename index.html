@@ -34,7 +34,7 @@
 
 
     <svg viewBox="0 0 360 100">
-        <path id="logoPath" d="M 0 50 Q 180 50 360 50" fill="none" stroke="#F00"></path>
+        <path id="logoPath" d="M 0 50 Q 180 120 360 50" fill="none" stroke="#F00"></path>
         <text x="180" font-size="24" dominant-baseline="middle" text-anchor="middle">
             <textPath href="#logoPath">FLORENTINE KITCHEN KNIVES</textPath>
         </text>
@@ -54,7 +54,7 @@
 
         let tl = gsap.timeline({
             onUpdate () {
-                $logo.setAttribute('d', `M 0 50 Q 180 ${50 + data.y} 360 50`)
+                $logo.setAttribute('d', `M 0 50 Q 180 ${120 - data.y} 360 50`)
             }
         });
 
@@ -62,8 +62,8 @@
         let prev = 0;
 
         window.addEventListener('scroll', () => {
-            let diff = prev - window.scrollY;
-            diff = Math.max(diff, -70);
+            let diff = Math.abs(prev - window.scrollY);
+            diff = Math.max(diff, 0);
             diff = Math.min(diff, 70);
             tl.clear();
             tl.to(data, {y: diff, duration: .3});
