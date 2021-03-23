@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+
+        @import url("https://p.typekit.net/p.css?s=1&k=sgy2zuz&ht=tk&f=19123&a=11330892&app=typekit&e=css");
+
+        @font-face {
+            font-family:"akzidenz-grotesk";
+            src:url("https://use.typekit.net/af/5556ca/000000000000000000013635/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/5556ca/000000000000000000013635/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/5556ca/000000000000000000013635/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+            font-display:auto;font-style:normal;font-weight:400;
+        }
+
+        body {
+            font-family: "akzidenz-grotesk";
+        }
+
+
+        svg {
+            position: fixed;
+            top: 50px;
+            left: 50px;
+            width: 360px;
+            outline: 1px solid #F00;
+
+        }
+
+    </style>
+</head>
+<body>
+
+
+    <svg viewBox="0 0 360 100">
+        <path id="logoPath" d="M 0 50 Q 180 50 360 50" fill="none" stroke="#F00"></path>
+        <text x="180" font-size="24" dominant-baseline="middle" text-anchor="middle">
+            <textPath href="#logoPath">FLORENTINE KITCHEN KNIVES</textPath>
+        </text>
+    </svg>
+
+    <section style="height: 8000px"></section>
+
+
+    <script src="gsap.min.js"></script>
+    <script>
+
+        const $logo = document.getElementById('logoPath');
+
+        let data = {
+            y: 0
+        }
+
+        let tl = gsap.timeline({
+            onUpdate () {
+                $logo.setAttribute('d', `M 0 50 Q 180 ${50 + data.y} 360 50`)
+            }
+        });
+
+
+        let prev = 0;
+
+        window.addEventListener('scroll', () => {
+            let diff = prev - window.scrollY;
+            diff = Math.max(diff, -70);
+            diff = Math.min(diff, 70);
+            tl.clear();
+            tl.to(data, {y: diff, duration: .3});
+            tl.to(data, {y: 0, duration: .7});
+            prev = window.scrollY
+        })
+
+    </script>
+
+
+
+</body>
+</html>
