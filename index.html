@@ -47,28 +47,13 @@
     <script>
 
         const $logo = document.getElementById('logoPath');
-
-        let data = {
-            y: 0
-        }
-
-        let tl = gsap.timeline({
-            onUpdate () {
-                $logo.setAttribute('d', `M 0 50 Q 180 ${120 - data.y} 360 50`)
-            }
-        });
-
-
-        let prev = 0;
+        const maxScrollTop = 200;
 
         window.addEventListener('scroll', () => {
-            let diff = Math.abs(prev - window.scrollY);
-            diff = Math.max(diff, 0);
-            diff = Math.min(diff, 70);
-            tl.clear();
-            tl.to(data, {y: diff, duration: .3});
-            tl.to(data, {y: 0, duration: .7});
-            prev = window.scrollY
+            let st = window.scrollY;
+            st = Math.max(st, 0);
+            st = Math.min(st, maxScrollTop);
+            $logo.setAttribute('d', `M 0 50 Q 180 ${120 - 70 * st / maxScrollTop} 360 50`)
         })
 
     </script>
